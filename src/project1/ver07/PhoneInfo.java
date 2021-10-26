@@ -13,7 +13,8 @@ public class PhoneInfo
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public void showPhoneInfo() {
+	public void showPhoneInfo() {		
+		System.out.println("===");
 		System.out.println("이름:"+ name);
 		System.out.println("전화번호:"+ phoneNumber);
 	}

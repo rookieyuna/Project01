@@ -13,6 +13,24 @@ public class PhoneBookManager implements SubMenuItem
 		phoneInfoData = new HashSet<PhoneInfo>();
 		//numOfInfo=0; // 배열저장 카운트용
 	}
+	public void overlapCheck(String name) {
+		Scanner scan = new Scanner(System.in);
+		for(PhoneInfo overlapCheck : phoneInfoData) {
+			if(name.equals(overlapCheck.getName())) {
+				System.out.println("이미 저장된 데이터입니다.");
+				System.out.print("덮어쓸까요? Y(y)/N(n)=>");
+				String yesOrNo = scan.nextLine();
+				if(yesOrNo.equalsIgnoreCase("y")) {
+					phoneInfoData.remove(overlapCheck);
+				}
+				else if(yesOrNo.equalsIgnoreCase("n")) {
+					System.out.println("==기존 주소록 출력==");
+					overlapCheck.showPhoneInfo();
+					System.out.println("==주소록 출력 완료==");
+				}
+			}
+		}
+	}
 	
 	public void dataInput() { //주소록저장
 		Scanner scan = new Scanner(System.in);
@@ -28,6 +46,7 @@ public class PhoneBookManager implements SubMenuItem
 		String phone = scan.nextLine();
 		
 		if(choice==NORMAL_FRIEND) {
+			overlapCheck(name);
 			phoneInfoData.add(new PhoneInfo(name, phone));
 		}
 		else if(choice==SCHOOL_FRIEND) {
@@ -35,11 +54,13 @@ public class PhoneBookManager implements SubMenuItem
 			String major = scan.nextLine();
 			System.out.print("학년: ");
 			int grade = scan.nextInt();
+			overlapCheck(name);
 			phoneInfoData.add(new PhoneSchoolInfo(name, phone,major,grade));
 		}
 		else if(choice==COMPANY_FRIEND) {
 			System.out.print("회사명: ");
 			String company = scan.nextLine();
+			overlapCheck(name);
 			phoneInfoData.add(new PhoneCompanyInfo(name, phone, company));
 		}
 		
