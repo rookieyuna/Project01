@@ -20,8 +20,7 @@ public class PhoneBookManager implements SubMenuItem
 		System.out.println(" 2.데이터 검색");
 		System.out.print("3.데이터 삭제");
 		System.out.println(" 4.주소록 출력");
-		System.out.print("5.저장옵션");
-		System.out.println(" 6.프로그램 종료!");
+		System.out.println("5.프로그램 종료");
 		System.out.print("선택: ");
 	}
 	
@@ -122,11 +121,6 @@ public class PhoneBookManager implements SubMenuItem
 		for(PhoneInfo info : phoneInfoData) {
 			info.showPhoneInfo();
 		}
-	}
-	
-	public void autoSave() { //5. 자동저장옵션
-	
-		
 	}
 }
 

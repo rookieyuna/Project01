@@ -1,8 +1,9 @@
 package project1.ver08;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class PhoneInfo
+public class PhoneInfo implements Serializable
 {
 	private String name;//이름
 	private String phoneNumber; //전화번호
@@ -14,7 +15,7 @@ public class PhoneInfo
 	}
 	
 	public void showPhoneInfo() {		
-		System.out.println("===");
+		System.out.println("===================");
 		System.out.println("이름:"+ name);
 		System.out.println("전화번호:"+ phoneNumber);
 	}

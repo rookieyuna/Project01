@@ -19,7 +19,7 @@ public class PhoneBookVer08 implements MenuItem
 				pbMgr.printMenu();
 				
 				int choice = scan.nextInt();
-				if(choice<1 || choice>5) {
+				if(choice<1 || choice>6) {
 					MenuSelectException ex = new MenuSelectException();
 					throw ex;
 				}
@@ -33,14 +33,12 @@ public class PhoneBookVer08 implements MenuItem
 				case SHOW_ALLDATA:
 					pbMgr.dataAllShow(); break;
 				case AUTO_SAVE:	
-					break;
+					pbMgr.autoSave(); break;
 				case PROGRAM_EXIT: 
+					pbMgr.saveData(); //주소록 데이터 직렬화
 					System.out.println("프로그램을 종료합니다.");
 					return;
 				}			
-			}
-			catch (MenuSelectException e) {
-				System.out.println(e.getMessage());
 			}
 			catch (InputMismatchException e) {
 				System.out.println("[예외]숫자만 입력하세요");
