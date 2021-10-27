@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class PhoneBookManager implements SubMenuItem
 {
-	private HashSet<PhoneInfo> phoneInfoData; //주소록 저장 배열 선언
+	static HashSet<PhoneInfo> phoneInfoData; //주소록 저장 배열 선언
 	private int numOfInfo;
 	
 	public PhoneBookManager() {
