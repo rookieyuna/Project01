@@ -3,11 +3,11 @@ package project1;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import project1.ver07.MenuItem;
-import project1.ver07.PhoneBookManager;
-import project1.ver07.MenuSelectException;
+import project1.ver08.MenuItem;
+import project1.ver08.PhoneBookManager;
+import project1.ver08.MenuSelectException;
 
-public class PhoneBookVer07 implements MenuItem
+public class PhoneBookVer08 implements MenuItem
 {
 	public static void main(String[] args)
 	{
@@ -32,6 +32,8 @@ public class PhoneBookVer07 implements MenuItem
 					pbMgr.dataDelete(); break;
 				case SHOW_ALLDATA:
 					pbMgr.dataAllShow(); break;
+				case AUTO_SAVE:	
+					break;
 				case PROGRAM_EXIT: 
 					System.out.println("프로그램을 종료합니다.");
 					return;

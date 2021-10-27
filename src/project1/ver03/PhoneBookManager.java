@@ -12,7 +12,17 @@ public class PhoneBookManager
 		numOfInfo=0; // 배열저장 카운트용
 	}
 	
-	public void dataInput() { //주소록저장
+	public void printMenu() {
+		System.out.println("▷선택하세요================");
+		System.out.print("1.데이터 입력");
+		System.out.println(" 2.데이터 검색");
+		System.out.print("3.데이터 삭제");
+		System.out.println(" 4.주소록 출력");
+		System.out.println("5.프로그램 종료");
+		System.out.print("선택: ");
+	}
+	
+	public void dataInput() { //1. 주소록저장
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#데이터 입력을 시작합니다.");
 		System.out.print("이름: ");
@@ -25,7 +35,7 @@ public class PhoneBookManager
 		System.out.println("#데이터 입력이 완료되었습니다.");
 	}
 	
-	public void  dataSearch() { //주소록검색(이름기준)
+	public void  dataSearch() { //2. 주소록검색(이름기준)
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#데이터 검색을 시작합니다.");
 		System.out.print("이름: ");
@@ -39,7 +49,7 @@ public class PhoneBookManager
 		}
 	}
 
-	public void  dataDelete() { //주소록 삭제(이름기준)
+	public void  dataDelete() { //3. 주소록 삭제(이름기준)
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#데이터 삭제를 시작합니다.");
 		System.out.print("이름: ");
@@ -64,7 +74,7 @@ public class PhoneBookManager
 		}	
 	}
 	
-	public void  dataAllShow() { //주소록전체출력
+	public void  dataAllShow() { //4. 주소록전체출력
 		for(int i=0; i<numOfInfo; i++) {
 			phoneInfoData[i].showPhoneInfo();
 		}

@@ -1,4 +1,4 @@
-package project1.ver07;
+package project1.ver08;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -20,12 +20,11 @@ public class PhoneBookManager implements SubMenuItem
 		System.out.println(" 2.데이터 검색");
 		System.out.print("3.데이터 삭제");
 		System.out.println(" 4.주소록 출력");
-		System.out.print("5.저장옵션");
-		System.out.println(" 6.프로그램 종료!");
+		System.out.println("5.프로그램 종료");
 		System.out.print("선택: ");
 	}
 	
-	public void overlapCheck(String name) { //주소록 저장 중복확인 메서드
+	public void overlapCheck(String name) {
 		Scanner scan = new Scanner(System.in);
 		for(PhoneInfo overlapCheck : phoneInfoData) {
 			if(name.equals(overlapCheck.getName())) {
@@ -44,7 +43,7 @@ public class PhoneBookManager implements SubMenuItem
 		}
 	}
 	
-	public void dataInput() { //1. 주소록저장
+	public void dataInput() { //주소록저장
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#데이터 입력을 시작합니다.");
 		System.out.println("1.일반/2.대학/3.회사");
@@ -79,7 +78,7 @@ public class PhoneBookManager implements SubMenuItem
 		System.out.println("#데이터 입력이 완료되었습니다.");
 	}
 	
-	public void  dataSearch() { //2. 주소록검색(이름기준)
+	public void  dataSearch() { //주소록검색(이름기준)
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#데이터 검색을 시작합니다.");
 		System.out.print("이름: ");
@@ -96,7 +95,7 @@ public class PhoneBookManager implements SubMenuItem
 	}
 	
 
-	public void  dataDelete() { //3. 주소록 삭제(이름기준)
+	public void  dataDelete() { //주소록 삭제(이름기준)
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#데이터 삭제를 시작합니다.");
 		System.out.print("이름: ");
@@ -117,17 +116,10 @@ public class PhoneBookManager implements SubMenuItem
 		}
 	}
 	
-	public void dataAllShow() { //4. 주소록전체출력
+	public void  dataAllShow() { //주소록전체출력
 		System.out.println("#주소록을 출력합니다.");
 		for(PhoneInfo info : phoneInfoData) {
 			info.showPhoneInfo();
 		}
 	}
-	
-	public void autoSave() { //5. 자동저장옵션
-	
-		
-	}
 }
-
-	
