@@ -11,8 +11,7 @@ public class AutoSaverT extends Thread {
 				sleep(5000);
 			}
 			catch (InterruptedException e) {
-				System.out.println("자동저장 시 오류발생 ㅠㅠ");
-				e.printStackTrace();
+				break;
 			}
 		}
 	}

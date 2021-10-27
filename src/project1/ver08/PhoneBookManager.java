@@ -156,7 +156,8 @@ public class PhoneBookManager implements SubMenuItem
 			info.showPhoneInfo();
 		}
 	}
-	
+	AutoSaverT autosaver= new AutoSaverT();
+		
 	public void autoSave() { //5. 자동저장옵션
 		
 		Scanner scan = new Scanner(System.in);
@@ -164,13 +165,13 @@ public class PhoneBookManager implements SubMenuItem
 		System.out.println("1.자동저장On, 2.자동저장Off ");
 		System.out.print("선택>>");
 		int choice = scan.nextInt();
-		AutoSaverT autosaver = new AutoSaverT();
-		autosaver.setDaemon(true);
 		
 		try {
 			if(choice==1) {
 				if(Thread.activeCount()==1) {
 					System.out.println("#자동저장을 시작합니다.");
+					autosaver= new AutoSaverT();
+					autosaver.setDaemon(true);
 					autosaver.start();
 				}
 				else {

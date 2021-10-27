@@ -2,14 +2,12 @@ package project1;
 
 import java.util.Scanner;
 
-import project1.ver09.OracleConnect;
 import project1.ver09.PhoneBookManager;
 
 public class PhoneBookVer09
 {	
 	public static void main(String[] args)
 	{
-		OracleConnect con = new OracleConnect();
 		PhoneBookManager pbMgr= new PhoneBookManager();
 		Scanner scan = new Scanner(System.in);
 		
@@ -28,6 +26,7 @@ public class PhoneBookVer09
 				pbMgr.dataAllShow(); break;
 			case 5: 
 				System.out.println("프로그램을 종료합니다.");
+				pbMgr.close();
 				return;
 			}
 		}
