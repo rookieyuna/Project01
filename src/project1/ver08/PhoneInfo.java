@@ -24,6 +24,11 @@ public class PhoneInfo implements Serializable
 	{
 		return name;
 	}
+	public String getphoneNumber()
+	{
+		return phoneNumber;
+	}
+	
 
 	@Override
 	public int hashCode()

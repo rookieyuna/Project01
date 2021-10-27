@@ -16,4 +16,9 @@ public class PhoneCompanyInfo extends PhoneInfo
 		super.showPhoneInfo();
 		System.out.println("회사:"+ company);
 	}
+
+	public String getCompany() {
+		return company;
+	}
+	
 }

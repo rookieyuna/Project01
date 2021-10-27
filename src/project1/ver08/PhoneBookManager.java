@@ -2,8 +2,10 @@ package project1.ver08;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -11,8 +13,7 @@ import java.util.Scanner;
 
 public class PhoneBookManager implements SubMenuItem
 {
-	static HashSet<PhoneInfo> phoneInfoData; //주소록 저장 배열 선언
-	private int numOfInfo;
+	HashSet<PhoneInfo> phoneInfoData; //주소록 저장 배열 선언
 	
 	public PhoneBookManager() {
 		phoneInfoData = new HashSet<PhoneInfo>();
@@ -49,7 +50,6 @@ public class PhoneBookManager implements SubMenuItem
 		else {
 			System.out.println("※Y와 N중에서만 입력하세요");
 		}
-	
 	}
 	
 	public void dataInput() { //1. 주소록저장
@@ -96,7 +96,6 @@ public class PhoneBookManager implements SubMenuItem
 				check=phoneInfoData.add(newinfo);
 				if(check==false) overlapCheck(newinfo);
 			}
-			
 			System.out.println("#데이터 입력이 완료되었습니다.");
 		}
 		catch (MenuSelectException e) {
@@ -156,9 +155,9 @@ public class PhoneBookManager implements SubMenuItem
 			info.showPhoneInfo();
 		}
 	}
-	AutoSaverT autosaver= new AutoSaverT();
+	AutoSaverT autosaver;
 		
-	public void autoSave() { //5. 자동저장옵션
+	public void autoSave(PhoneBookManager pbMgr) { //5. 자동저장옵션
 		
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#저장 옵션을 선택하세요.");
@@ -170,7 +169,7 @@ public class PhoneBookManager implements SubMenuItem
 			if(choice==1) {
 				if(Thread.activeCount()==1) {
 					System.out.println("#자동저장을 시작합니다.");
-					autosaver= new AutoSaverT();
+					autosaver= new AutoSaverT(pbMgr);
 					autosaver.setDaemon(true);
 					autosaver.start();
 				}
@@ -231,4 +230,33 @@ public class PhoneBookManager implements SubMenuItem
 		}
 		System.out.println("★저장된 정보 불러오기 완료★");
 	}
+	
+	public void autosavebook() {
+		try{
+			PrintWriter out = new PrintWriter(
+					new FileWriter("src/project1/ver08/AutoSaveBook.txt"));
+			
+			for(PhoneInfo list : phoneInfoData) {
+				if(list instanceof PhoneCompanyInfo) {
+					out.printf("%s %s %s",list.getName(), list.getphoneNumber(), 
+							((PhoneCompanyInfo) list).getCompany());
+					out.println("");
+				}
+				else if(list instanceof PhoneSchoolInfo) {
+					out.printf("%s %s %s %s",list.getName(), list.getphoneNumber(), 
+							((PhoneSchoolInfo)list).getMajor(),((PhoneSchoolInfo)list).getGrade());
+					out.println("");
+				}
+				else if(list instanceof PhoneInfo) {
+					out.printf("%s %s",list.getName(), list.getphoneNumber());
+					out.println("");
+				}
+			}
+			out.close();
+		}
+		catch (Exception e) {
+			System.out.println("자동저장 스트림 오류");
+		}
+	}
+	
 }
