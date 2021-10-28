@@ -92,6 +92,7 @@ public class PhoneBookManager
 			String sql = "SELECT * from phonebook_tb WHERE name LIKE '%"+ searchName +"%'";
 			
 			rs = smt.executeQuery(sql);
+			System.out.println("No.  Name Phone  Birthday");
 			while(rs.next()) {
 				String idx = rs.getString(1); //id컬럼
 				String name = rs.getString(2); //name컬럼
@@ -134,13 +135,14 @@ public class PhoneBookManager
 			smt = con.createStatement();
 			String sql = "SELECT * from phonebook_tb ORDER BY idx";
 			
+			System.out.println("No. Name   Phone   Birthday");
 			rs = smt.executeQuery(sql);
 			while(rs.next()) {
 				String idx = rs.getString(1); //id컬럼
 				String name = rs.getString(2); //name컬럼
 				String phone = rs.getString(3); //phone컬럼
 				String birth = rs.getString(4); //birthday컬럼
-				System.out.printf("%s %s %s %s\n", idx, name, phone, birth);
+				System.out.printf("%2s %3s %8s %s\n", idx, name, phone, birth);
 			}
 		}
 		catch (Exception e) {

@@ -62,11 +62,14 @@ public class OracleConnect {
 			String sql = "SELECT * from phonebook_tb WHERE name LIKE '%"+ searchName +"%'";
 			
 			rs = smt.executeQuery(sql);
+			
 			while(rs.next()) {
 				String idx = rs.getString(1); //id컬럼
 				String name = rs.getString(2); //name컬럼
 				String phone = rs.getString(3); //phone컬럼
 				String birth = rs.getString(4); //birthday컬럼
+				
+				
 				System.out.printf("%s %s %s %s\n", idx, name, phone, birth);
 			}
 		}
