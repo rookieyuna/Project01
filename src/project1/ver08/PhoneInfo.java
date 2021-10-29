@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class PhoneInfo implements Serializable
 {
-	private String name;//이름
-	private String phoneNumber; //전화번호
+	protected String name;//이름
+	protected String phoneNumber; //전화번호
 	
 	//3개의 매개변수를 가진 생성자
 	public PhoneInfo(String name, String phoneNumber) {
@@ -15,9 +15,10 @@ public class PhoneInfo implements Serializable
 	}
 	
 	public void showPhoneInfo() {		
-		System.out.println("===================");
+		System.out.println("─ ─ ─ ─ ─ ─ ─ ─ ─ ─");
 		System.out.println("이름:"+ name);
 		System.out.println("전화번호:"+ phoneNumber);
+		System.out.println("─ ─ ─ ─ ─ ─ ─ ─ ─ ─");
 	}
 	
 	public String getName()

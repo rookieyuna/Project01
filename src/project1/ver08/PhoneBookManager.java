@@ -1,6 +1,7 @@
 package project1.ver08;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
@@ -32,34 +33,12 @@ public class PhoneBookManager implements SubMenuItem
 		System.out.print("선택>> ");
 	}
 	
-	public void overlapCheck(PhoneInfo info) { //주소록 저장 중복 확인 메서드
-		Scanner scan = new Scanner(System.in);
-		boolean check = phoneInfoData.add(info);
-		if(check==false) {
-			System.out.println("이미 저장된 데이터입니다.");
-			System.out.print("덮어쓸까요? Y(y)/N(n)=>");
-			String yesOrNo = scan.nextLine();
-			
-			if(yesOrNo.equalsIgnoreCase("y")) {
-				phoneInfoData.remove(info);
-				phoneInfoData.add(info);
-				System.out.println("#데이터 덮어쓰기가 완료되었습니다.");
-			}
-			else if(yesOrNo.equalsIgnoreCase("n")) {
-				System.out.println("==기존 주소록 출력==");
-					info.showPhoneInfo();
-				System.out.println("==주소록 출력 완료==");
-			}
-			else {
-				System.out.println("※Y와 N중에서만 입력하세요");
-			}
-		}
-		else {
-			System.out.println("#데이터 입력이 완료되었습니다.");
-		}
-	}
 	
-	public void dataInput() { //1. 주소록저장
+	
+	
+	
+	/*************1. 주소록저장***************/
+	public void dataInput() {
 		try {
 			Scanner scan = new Scanner(System.in);
 			
@@ -113,7 +92,35 @@ public class PhoneBookManager implements SubMenuItem
 		}
 	}
 	
-	public void  dataSearch() { //2. 주소록검색(이름기준)
+	public void overlapCheck(PhoneInfo info) { //주소록 저장 중복 확인 메서드
+		Scanner scan = new Scanner(System.in);
+		boolean check = phoneInfoData.add(info);
+		if(check==false) {
+			System.out.println("이미 저장된 데이터입니다.");
+			System.out.print("덮어쓸까요? Y(y)/N(n)=>");
+			String yesOrNo = scan.nextLine();
+			
+			if(yesOrNo.equalsIgnoreCase("y")) {
+				phoneInfoData.remove(info);
+				phoneInfoData.add(info);
+				System.out.println("#데이터 덮어쓰기가 완료되었습니다.");
+			}
+			else if(yesOrNo.equalsIgnoreCase("n")) {
+				System.out.println("==기존 주소록 출력==");
+					info.showPhoneInfo();
+				System.out.println("==주소록 출력 완료==");
+			}
+			else {
+				System.out.println("※Y와 N중에서만 입력하세요");
+			}
+		}
+		else {
+			System.out.println("#데이터 입력이 완료되었습니다.");
+		}
+	}
+	
+	/*************2. 주소록검색(이름기준)***************/
+	public void  dataSearch() { 
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#데이터 검색을 시작합니다.");
 		System.out.print("이름: ");
@@ -128,8 +135,9 @@ public class PhoneBookManager implements SubMenuItem
 		}
 		System.out.println("#데이터 검색이 완료되었습니다.");
 	}
-
-	public void  dataDelete() { //3. 주소록 삭제(이름기준)
+	
+	/*************3. 주소록 삭제(이름기준)***************/
+	public void  dataDelete() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#데이터 삭제를 시작합니다.");
 		System.out.print("이름: ");
@@ -142,6 +150,7 @@ public class PhoneBookManager implements SubMenuItem
 				phoneInfoData.remove(info);
 				deleteIdx = 1;
 				System.out.println("#데이터 삭제가 완료되었습니다.");
+				break;
 			}
 		}
 		if(deleteIdx==-1) {
@@ -149,14 +158,17 @@ public class PhoneBookManager implements SubMenuItem
 		}
 	}
 	
-	public void  dataAllShow() { //4. 주소록전체출력
+	
+	/*************4. 주소록전체출력***************/
+	public void  dataAllShow() { 
 		System.out.println("#주소록을 출력합니다.");
 		for(PhoneInfo info : phoneInfoData) {
 			info.showPhoneInfo();
 		}
 	}
-		
-	public void autoSave(AutoSaverT autosaver) { //5. 자동저장옵션
+	
+	/*************5. 자동저장옵션***************/
+	public void autoSave(AutoSaverT autosaver) {
 		
 		Scanner scan = new Scanner(System.in);
 		System.out.println("#저장 옵션을 선택하세요.");
@@ -166,9 +178,9 @@ public class PhoneBookManager implements SubMenuItem
 		
 		try {
 			if(choice==1) {
-				if(Thread.activeCount()==1) {
+				if(!autosaver.isAlive()) {
 					System.out.println("#자동저장을 시작합니다.");
-					autosaver.setDaemon(true);
+					autosaver.setDaemon(true); //데몬쓰레드로 설정
 					autosaver.start();
 				}
 				else {
@@ -176,10 +188,11 @@ public class PhoneBookManager implements SubMenuItem
 				}
 			}
 			else if (choice==2) {
-				autosaver.interrupt();
-				System.out.println("#자동저장을 종료합니다.");
+				if(autosaver.isAlive()) {
+					autosaver.interrupt();
+					System.out.println("#자동저장을 종료합니다.");
+				}
 			}
-			
 			if(choice<1 || choice>2) {
 				MenuSelectException ex = new MenuSelectException();
 				throw ex;
@@ -187,6 +200,7 @@ public class PhoneBookManager implements SubMenuItem
 		}
 		catch (MenuSelectException e) {
 			System.out.println(e.getMessage());
+			
 		}
 		catch (Exception e) {
 			System.out.println("[예외]자동저장 시 문제발생");
@@ -194,8 +208,8 @@ public class PhoneBookManager implements SubMenuItem
 		}
 	}
 	
-	
-	public void saveData() { //주소록 데이터 저장 아웃스트림
+	/*************[주소록 데이터 저장 아웃스트림]***************/
+	public void saveData() {
 		try {
 			ObjectOutputStream dataOut = new ObjectOutputStream
 					(new FileOutputStream("src/project1/ver08/PhoneBook.obj"));
@@ -213,7 +227,8 @@ public class PhoneBookManager implements SubMenuItem
 		}
 	}
 	
-	public void readData() { //주소록 데이터 불러오기 인스트림
+	/*************[주소록 데이터 불러오기 인스트림]***************/
+	public void readData() {
 		try {
 			ObjectInputStream datain = new ObjectInputStream
 					(new FileInputStream("src/project1/ver08/PhoneBook.obj"));
@@ -222,13 +237,17 @@ public class PhoneBookManager implements SubMenuItem
 				phoneInfoData.add(info);
 				if(info==null) break;
 			}
-		}
-		catch (Exception e) {
 			
 		}
-		System.out.println("★저장된 정보 불러오기 완료★");
+		catch (FileNotFoundException e) {
+			System.out.println("불러올 정보가 없습니다.");
+		}
+		catch (Exception e) {
+			System.out.println("★저장된 정보 불러오기 완료★");
+		}
 	}
 	
+
 	//AutoSaveBook.txt 파일생성 메서드 (자동저장 쓰레드 AutoSaverT 클래스 삽입)
 	public void autosavebook() { 
 		try{

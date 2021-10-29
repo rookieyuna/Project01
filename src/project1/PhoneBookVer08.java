@@ -13,7 +13,7 @@ public class PhoneBookVer08 implements MenuItem
 	public static void main(String[] args)
 	{
 		PhoneBookManager pbMgr= new PhoneBookManager();
-		AutoSaverT autosaver = new AutoSaverT(pbMgr);
+		AutoSaverT autosaver = null;
 		Scanner scan = new Scanner(System.in);
 		
 		while(true) {
@@ -35,6 +35,9 @@ public class PhoneBookVer08 implements MenuItem
 				case SHOW_ALLDATA:
 					pbMgr.dataAllShow(); break;
 				case AUTO_SAVE:	
+					if(autosaver==null || (!autosaver.isAlive())) {
+						autosaver = new AutoSaverT(pbMgr);
+					}
 					pbMgr.autoSave(autosaver); break;
 				case PROGRAM_EXIT: 
 					pbMgr.saveData(); //주소록 데이터 직렬화
