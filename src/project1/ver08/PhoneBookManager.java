@@ -240,7 +240,7 @@ public class PhoneBookManager implements SubMenuItem
 			
 		}
 		catch (FileNotFoundException e) {
-			System.out.println("불러올 정보가 없습니다.");
+			System.out.println("#불러올 주소록 정보가 없습니다.");
 		}
 		catch (Exception e) {
 			System.out.println("★저장된 정보 불러오기 완료★");
