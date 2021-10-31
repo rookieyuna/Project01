@@ -45,6 +45,9 @@ public class PhoneBookVer08 implements MenuItem
 					return;
 				}			
 			}
+			catch (MenuSelectException e) {
+				System.out.println(e.getMessage());
+			}
 			catch (InputMismatchException e) {
 				System.out.println("[예외]숫자만 입력하세요");
 			}

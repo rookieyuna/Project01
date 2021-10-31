@@ -40,13 +40,14 @@ public class PhoneBookManager
 	}
 	
 	public void printMenu() {
-		System.out.println("▷선택하세요================");
-		System.out.print("1.데이터 입력");
-		System.out.println(" 2.데이터 검색");
-		System.out.print("3.데이터 삭제");
-		System.out.println(" 4.주소록 출력");
-		System.out.println("5.프로그램 종료");
-		System.out.print("선택: ");
+		System.out.println("┌─────────《메뉴선택》────────┐");
+		System.out.print("│ 1.데이터 입력 ");
+		System.out.println("2.데이터 검색 │");
+		System.out.print("│ 3.데이터 삭제 ");
+		System.out.println("4.주소록 출력 │");		
+		System.out.println("│ 5.프로그램 종료             │");
+		System.out.println("└─────────────────────────────┘");
+		System.out.print("선택>> ");
 	}
 	
 	
@@ -92,13 +93,13 @@ public class PhoneBookManager
 			String sql = "SELECT * from phonebook_tb WHERE name LIKE '%"+ searchName +"%'";
 			
 			rs = smt.executeQuery(sql);
-			System.out.println("No.  Name Phone  Birthday");
+			System.out.println("No.  Name   Phone  Birthday");
 			while(rs.next()) {
 				String idx = rs.getString(1); //id컬럼
 				String name = rs.getString(2); //name컬럼
 				String phone = rs.getString(3); //phone컬럼
 				String birth = rs.getString(4); //birthday컬럼
-				System.out.printf("%s %s %s %s\n", idx, name, phone, birth);
+				System.out.printf("%2s %4s %8s %8s\n", idx, name, phone, birth);
 			}
 			System.out.println("#데이터 검색을 완료되었습니다.");
 		}
@@ -135,14 +136,14 @@ public class PhoneBookManager
 			smt = con.createStatement();
 			String sql = "SELECT * from phonebook_tb ORDER BY idx";
 			
-			System.out.println("No. Name   Phone   Birthday");
+			System.out.println("No.  Name   Phone  Birthday");
 			rs = smt.executeQuery(sql);
 			while(rs.next()) {
 				String idx = rs.getString(1); //id컬럼
 				String name = rs.getString(2); //name컬럼
 				String phone = rs.getString(3); //phone컬럼
 				String birth = rs.getString(4); //birthday컬럼
-				System.out.printf("%2s %3s %8s %s\n", idx, name, phone, birth);
+				System.out.printf("%2s %4s %8s %8s\n", idx, name, phone, birth);
 			}
 		}
 		catch (Exception e) {
